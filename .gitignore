@@ -1,0 +1,63 @@
+# =======================================================
+# SmartLedger: Git Ignore (iOS SwiftUI & Python Backend)
+# =======================================================
+
+# OS Generated
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Xcode & Apple Swift
+build/
+DerivedData/
+*.xcuserstate
+project.xcworkspace/xcuserdata/
+*.xcuserdatad/
+*.xcscmblueprint
+*.moved-aside
+xcuserdata/
+*.xccheckout
+*.xcbkptlist
+*.xcuserstate
+*.dSYM.zip
+*.dSYM
+*.ipa
+*.pkg
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+.swiftpm/configuration/
+
+# Python & Backend
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local Environment Variables & Secrets
+.env
+*.env.local
+
+# Databases & Local Storage
+*.db
+*.sqlite3
+*.sqlite
+smartledger_backend.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

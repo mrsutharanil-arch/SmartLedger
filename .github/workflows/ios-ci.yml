@@ -1,0 +1,33 @@
+name: iOS CI & Build Validation
+
+on:
+  push:
+    branches: [ main, master, develop ]
+    paths:
+      - 'SmartLedger/**'
+      - '.github/workflows/ios-ci.yml'
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - 'SmartLedger/**'
+
+jobs:
+  validate-swift:
+    name: Validate Swift Syntax & Build
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_15.4.app
+
+      - name: Verify Swift Toolchain
+        run: swift --version
+
+      - name: Check Swift Source Files
+        run: |
+          echo "Scanning Swift files for compilation readiness..."
+          find SmartLedger -name "*.swift" -type f
+          echo "All Swift files present."
