@@ -29,12 +29,6 @@ jobs:
           fi
           xcodebuild -version
 
-      - name: Install XcodeGen
-        run: brew install xcodegen
-
-      - name: Generate Xcode Project
-        run: xcodegen generate
-
       - name: Build Application for iOS Simulator
         run: |
           mkdir -p build/Release-iphonesimulator
