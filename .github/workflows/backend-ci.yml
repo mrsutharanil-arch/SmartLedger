@@ -2,14 +2,10 @@ name: Backend CI & Health Test
 
 on:
   push:
-    branches: [ main, master, develop ]
-    paths:
-      - 'Backend/**'
-      - '.github/workflows/backend-ci.yml'
+    branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
-    paths:
-      - 'Backend/**'
+  workflow_dispatch:
 
 jobs:
   test-backend:
