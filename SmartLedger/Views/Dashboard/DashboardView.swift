@@ -5,13 +5,20 @@ public struct DashboardView: View {
     @State private var showingAddExpenseSheet = false
     @State private var showingScanHub = false
     @State private var showingPreparedInbox = false
+    @State private var companyProfile: CompanyProfile = CompanyProfileView.loadSavedProfile()
     
     public init() {}
     
     public var body: some View {
         NavigationStack {
             ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 20) {
+                VStack(spacing: 18) {
+                    // MARK: - 0. Company Branding & Logo Banner
+                    NavigationLink(destination: CompanyProfileView()) {
+                        CompanyBrandingHeaderView(profile: companyProfile)
+                    }
+                    .buttonStyle(.plain)
+                    
                     // MARK: - 1. Net Worth Hero Card
                     NetWorthHeroView()
                     
@@ -44,7 +51,7 @@ public struct DashboardView: View {
                     RecentTransactionsSection()
                 }
                 .padding(.horizontal, 16)
-                .padding(.top, 8)
+                .padding(.top, 4)
                 .padding(.bottom, 24)
             }
             .background(Color(UIColor.systemGroupedBackground).ignoresSafeArea())
@@ -56,6 +63,9 @@ public struct DashboardView: View {
                             .foregroundColor(.primary)
                     }
                 }
+            }
+            .onAppear {
+                companyProfile = CompanyProfileView.loadSavedProfile()
             }
             .sheet(isPresented: $showingAddExpenseSheet) {
                 QuickManualAddSheet()

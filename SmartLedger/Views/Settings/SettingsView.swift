@@ -7,6 +7,7 @@ public struct SettingsView: View {
     @State private var isTestingKey: Bool = false
     @State private var testResult: String? = nil
     @State private var isFaceIDEnabled: Bool = false
+    @State private var companyProfile: CompanyProfile = CompanyProfileView.loadSavedProfile()
     
     let currencies = ["USD", "EUR", "GBP", "INR", "JPY", "CAD", "AUD"]
     
@@ -14,7 +15,44 @@ public struct SettingsView: View {
     
     public var body: some View {
         Form {
-            // MARK: - Section 1: Auto-Scan Backend Server
+            // MARK: - Section 1: Company Profile & Branding
+            Section("Company Profile & Branding") {
+                NavigationLink(destination: CompanyProfileView()) {
+                    HStack(spacing: 12) {
+                        ZStack {
+                            Circle()
+                                .fill(
+                                    LinearGradient(
+                                        colors: [Color(hex: "#0B192C"), Color(hex: "#1E3E62"), Color(hex: "#0077B6")],
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    )
+                                )
+                                .frame(width: 44, height: 44)
+                            Image(systemName: "building.2.crop.circle.fill")
+                                .font(.title3)
+                                .foregroundColor(Color(hex: "#00B4D8"))
+                        }
+                        
+                        VStack(alignment: .leading, spacing: 2) {
+                            HStack {
+                                Text(companyProfile.companyName)
+                                    .font(.subheadline)
+                                    .fontWeight(.bold)
+                                Image(systemName: "checkmark.seal.fill")
+                                    .font(.caption2)
+                                    .foregroundColor(.blue)
+                            }
+                            Text(companyProfile.taxNumber)
+                                .font(.caption2)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    .padding(.vertical, 4)
+                }
+            }
+            
+            // MARK: - Section 2: Auto-Scan Backend Server
             Section(header: Text("Auto-Scan Backend Service"), footer: Text("The backend automatically scans forwarded receipt emails, inbound SMS banking alerts, and background photo uploads, preparing them for 1-tap ledger approval.")) {
                 TextField("Server URL (e.g. http://192.168.1.50:8000)", text: $backendURL)
                     .textInputAutocapitalization(.never)
@@ -31,7 +69,7 @@ public struct SettingsView: View {
                 }
             }
             
-            // MARK: - Section 2: Google Gemini AI Configuration
+            // MARK: - Section 3: Google Gemini AI Configuration
             Section(header: Text("Google Gemini AI Engine"), footer: Text("SmartLedger connects directly to Gemini 2.5 Flash for high-speed multimodal receipt scanning, SMS alert parsing, and financial reasoning. Your key is stored locally in device storage.")) {
                 SecureField("Gemini API Key (AIzaSy...)", text: $apiKey)
                     .textInputAutocapitalization(.never)
@@ -62,7 +100,7 @@ public struct SettingsView: View {
                 }
             }
             
-            // MARK: - Section 3: Preferences & Currency
+            // MARK: - Section 4: Preferences & Currency
             Section("Preferences") {
                 Picker("Primary Currency", selection: $store.selectedCurrency) {
                     ForEach(currencies, id: \.self) { curr in
@@ -76,7 +114,7 @@ public struct SettingsView: View {
                     }
             }
             
-            // MARK: - Section 4: Data Management
+            // MARK: - Section 5: Data Management
             Section("Data Management") {
                 Button(action: {
                     store.loadMockData()
@@ -104,7 +142,7 @@ public struct SettingsView: View {
                 }
             }
             
-            // MARK: - Section 5: Privacy & Security
+            // MARK: - Section 6: Privacy & Security
             Section("Security & Privacy") {
                 HStack(spacing: 12) {
                     Image(systemName: "lock.shield.fill")
@@ -122,8 +160,26 @@ public struct SettingsView: View {
                 .padding(.vertical, 4)
             }
             
-            // Section 6: About
-            Section("About") {
+            // MARK: - Section 7: Company & Application About
+            Section("About & Organization") {
+                HStack {
+                    Text("Organization")
+                    Spacer()
+                    Text(companyProfile.companyName)
+                        .foregroundColor(.secondary)
+                }
+                HStack {
+                    Text("Developer")
+                    Spacer()
+                    Text("mrsutharanil-arch")
+                        .foregroundColor(.secondary)
+                }
+                HStack {
+                    Text("Contact Email")
+                    Spacer()
+                    Text(companyProfile.officialEmail)
+                        .foregroundColor(.blue)
+                }
                 HStack {
                     Text("App Version")
                     Spacer()
@@ -143,6 +199,7 @@ public struct SettingsView: View {
             apiKey = UserDefaults.standard.string(forKey: "gemini_api_key") ?? ""
             backendURL = UserDefaults.standard.string(forKey: "backend_server_url") ?? "http://localhost:8000"
             isFaceIDEnabled = UserDefaults.standard.bool(forKey: "biometrics_enabled")
+            companyProfile = CompanyProfileView.loadSavedProfile()
         }
     }
     

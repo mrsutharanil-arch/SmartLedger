@@ -1,12 +1,32 @@
-# SmartLedger: Personal AI Accounting & Wealth Manager for iPhone (iOS) & Auto-Scan Backend
+# SmartLedger: Personal AI Accounting & Wealth Manager
 
-> A complete personal accounting system consisting of a native **iOS iPhone App (SwiftUI, VisionKit, AppIntents)** and a high-performance **Auto-Scan Backend (FastAPI, Google Gemini AI)** for automated background receipt scanning, SMS alert parsing, email forwarding, account balances, credit cards, bills, and investment portfolios.
+<div align="center">
+  <img src="logo.png" width="128" height="128" alt="SmartLedger Logo" />
+  <h2>SmartLedger</h2>
+  <p><b>An Official Financial Engineering Solution by Suthar Anil Arch</b></p>
+  <p><i>Automated Mobile Personal Accounting, Receipt Scanning & Gemini AI Financial Intelligence</i></p>
+</div>
 
 ---
 
-## ⚡ What's New: Auto-Scan & Background Transaction Preparation
+## 🏢 Company & Organization Information
 
-SmartLedger now features **automated background transaction preparation**:
+- **Organization / Developer**: Suthar Anil Arch Tech
+- **Legal Entity**: Suthar Anil Architecture & Financial Solutions
+- **Industry**: Software Architecture, Personal Finance & Accounting Technology
+- **Official Contact**: [mr.sutharanil@gmail.com](mailto:mr.sutharanil@gmail.com)
+- **GitHub Repository**: [https://github.com/mrsutharanil-arch/SmartLedger](https://github.com/mrsutharanil-arch/SmartLedger)
+- **Tax Identifier / VAT**: `TAX-ID: 24AABCS1492Z1`
+- **Registration**: `REG-2026-IN-9841`
+- **Location**: Gujarat, India
+
+*Note: All company details, tax identifiers, and contact numbers can be dynamically updated inside the iOS app via **Settings > Company Profile & Branding**.*
+
+---
+
+## ⚡ What is SmartLedger?
+
+SmartLedger is a personal accounting system combining a **native iPhone App (SwiftUI, VisionKit, AppIntents)** with an **Auto-Scan Backend (FastAPI, Google Gemini AI)**:
 
 ```
 [Inbound Email Receipt]  ──┐
@@ -27,130 +47,56 @@ SmartLedger now features **automated background transaction preparation**:
                         [Ledger Updated + Balance Auto-Deducted]
 ```
 
-1. **Inbound Webhooks**:
-   - `POST /api/v1/auto-scan/email`: Inbound email webhook (SendGrid, Mailgun, Postmark, AWS SES, or IMAP poller) that extracts invoice bodies and PDF receipts.
-   - `POST /api/v1/auto-scan/sms`: Inbound webhook for bank SMS alerts.
-   - `POST /api/v1/auto-scan/receipt`: Background upload endpoint for receipts and invoices.
-   - `POST /api/v1/auto-scan/shortcut`: Lightweight form endpoint designed for Apple Personal Automations.
-2. **Apple Shortcuts & AppIntents**:
-   - Native iOS `AutoScanMessageIntent` and `SmartLedgerShortcuts` provider: Trigger automations directly in the Apple Shortcuts app when an SMS arrives from your bank or when a screenshot is taken.
-3. **iOS BackgroundTasks (`BGAppRefreshTask`)**:
-   - Periodically queries the backend in the background when the iPhone is charging or connected to Wi-Fi.
-   - Posts native Apple push notifications (`UNUserNotificationCenter`) alert: *"2 new transactions auto-prepared from bank alerts. Tap to review."*
-4. **Prepared Transactions Review Tray**:
-   - Interactive review cards on iOS Dashboard and Scan Hub.
-   - See AI confidence score, extracted line items, and auto-matched credit card or checking account.
-   - 1-tap "Approve & Deduct" or "Approve All" to finalize into the active ledger.
+---
+
+## 📱 iOS App Highlights
+
+### 1. Company Branding & Corporate Letterheads
+- **Dynamic Header**: Displays your corporate branding badge and tax identifier on the Dashboard.
+- **Statement Letterheads**: Generates official statements of accounts with company letterhead, tax registration numbers, and financial position summaries.
+
+### 2. Multi-Source Ingestion & Auto-Scan
+- **VisionKit Camera Scanner**: Scans paper receipts, invoices, and checks with Gemini multimodal vision.
+- **SMS Bank Alert Parser**: Instant regex extraction + Gemini fallback for transaction notifications.
+- **Auto-Scan Prepared Inbox**: Review incoming background transactions and approve them in 1 tap.
+
+### 3. Bank Accounts & Credit Card Deck
+- **Accounts**: Checking, Savings, Cash, Digital Wallets.
+- **Interactive Credit Cards**: EMV chip styling, statement closing dates, due date countdowns, and real-time **Credit Utilization Bars** (>30% alert).
+- **Pay Card**: 1-tap modal to make credit card payments and auto-log transactions.
+
+### 4. Bills & Subscriptions
+- Recurring utility bills, rent, streaming, loan EMIs with due date alerts.
+- Auto-pay status flags and 1-tap "Mark as Paid".
+
+### 5. Investments & Net Worth
+- Equities, ETFs, Crypto, Mutual Funds, Bonds.
+- Asset allocation breakdown.
+- Net Worth formula: `(Cash Balances + Investments) - Credit Debt`.
+
+### 6. Gemini AI Advisor & Financial Health Index
+- Conversational financial chat grounded in your live accounts.
+- Autonomous Financial Health Index (0–100).
+- Anomaly alerts for high credit utilization or spending spikes.
 
 ---
 
-## 📱 iOS App Capabilities
+## 🚀 Building & Running
 
-### 1. Ingestion & Scanning
-- **Camera Document & Receipt Scanner**: Apple's native **VisionKit** (`VNDocumentCameraViewController`) with Gemini multimodal vision.
-- **Bank SMS Parser**: Instant regex extraction + Gemini fallback for Chase, Amex, Apple Pay, Bank of America, HDFC, SBI, etc.
-- **Auto-Scan Inbox**: Dedicated tray for transactions prepared automatically by the backend.
-
-### 2. Bank Accounts & Credit Cards
-- **Accounts**: Checking, Savings, Cash, Wallets with real-time balance calculations.
-- **Credit Card Deck**: Apple Wallet-style visual cards with EMV chip, APR, statement closing dates, due date countdowns, and real-time **Credit Utilization Bars** (>30% alert).
-- **Pay Card Action**: Direct modal to make card payments from selected bank accounts.
-
-### 3. Bills & Subscriptions
-- **Recurring Bills Tracker**: Utilities, rent, streaming, loan EMIs with due date reminders.
-- **Auto-Pay Indicators**: Distinguishes automated bank debits from manual bills.
-- **Mark Paid**: 1-tap logging into the ledger.
-
-### 4. Investments & Net Worth
-- **Multi-Asset Portfolio**: Equities, ETFs, Crypto, Mutual Funds, Bonds.
-- **Asset Allocation**: Visual distribution bars.
-- **Net Worth**: `(Cash + Investments) - Credit Card Debt`.
-
-### 5. Gemini AI Advisor
-- **Conversational Chat Assistant**: Grounded in live balances, pending bills, and spending patterns.
-- **Financial Health Index (0-100)**: Real-time score based on credit utilization, savings rate, and bill reliability.
-- **Proactive AI Alerts**: Spending anomaly detection and cost-cutting advice.
-
----
-
-## 🏗️ Project Structure
-
-```
-SmartLedger/
-├── Backend/                            # Auto-Scan Backend Service (FastAPI + Python)
-│   ├── app/
-│   │   ├── main.py                     # FastAPI server & CORS setup
-│   │   ├── models.py                   # Pydantic schemas (PreparedTransaction, Webhooks)
-│   │   ├── database.py                 # SQLite storage for staged transactions
-│   │   ├── gemini_engine.py            # Gemini 2.5 Flash multimodal & text client
-│   │   └── routes/
-│   │       ├── auto_scan.py            # Email, SMS & Receipt upload webhooks
-│   │       └── prepared_transactions.py# Prepared inbox, approval & rejection APIs
-│   ├── requirements.txt                # Python dependencies
-│   ├── Dockerfile                      # Container deployment
-│   ├── .env.example                    # Gemini API Key & settings template
-│   └── README.md                       # Backend documentation & Shortcuts guide
-│
-├── SmartLedger/                        # Native iOS Application (Swift / SwiftUI)
-│   ├── App/
-│   │   └── SmartLedgerApp.swift        # App entry & BackgroundTasks registration
-│   ├── AppIntents/
-│   │   └── AutoScanMessageIntent.swift # Apple Shortcuts AppIntents integration
-│   ├── Models/
-│   │   ├── Account.swift               # Checking, Savings, Cash models
-│   │   ├── CreditCard.swift            # Credit cards & utilization metrics
-│   │   ├── PreparedTransaction.swift   # Auto-scanned prepared transaction model
-│   │   ├── Transaction.swift           # Ledger transactions
-│   │   ├── Bill.swift                  # Recurring bills & subscriptions
-│   │   ├── Investment.swift            # Portfolio assets
-│   │   ├── AIInsight.swift             # Gemini proactive insights
-│   │   └── ParsedReceipt.swift         # Extracted receipt line items
-│   ├── Services/
-│   │   ├── BackendSyncService.swift    # Connects iPhone to Auto-Scan Backend
-│   │   ├── BackgroundScanManager.swift # BGAppRefreshTask & Photo monitoring
-│   │   ├── GeminiAPIService.swift      # On-device Gemini client
-│   │   ├── DocumentScannerService.swift# VisionKit camera document scanner
-│   │   ├── SMSParserService.swift      # Bank SMS regex parser
-│   │   ├── BiometricAuthService.swift  # Face ID / Touch ID gatekeeper
-│   │   └── DataStore.swift             # Central Observable state & local persistence
-│   ├── Views/
-│   │   ├── MainTabView.swift           # 5-tab root navigation
-│   │   ├── Dashboard/
-│   │   │   └── DashboardView.swift     # Net Worth, Auto-Scan Banner, Cash Flow
-│   │   ├── Ingestion/
-│   │   │   ├── ScanHubView.swift       # Scanning center
-│   │   │   ├── PreparedTransactionsInboxView.swift # Auto-Scan review & approval inbox
-│   │   │   └── ParsedReceiptReviewView.swift       # Manual receipt review sheet
-│   │   ├── Accounts/
-│   │   │   └── AccountsView.swift      # Banks, Credit Cards & Card Pay modal
-│   │   ├── Bills/
-│   │   │   └── BillsTrackerView.swift  # Bills & subscriptions tracker
-│   │   ├── Investments/
-│   │   │   └── InvestmentsView.swift   # Portfolio value & asset allocation
-│   │   ├── AIAdvisor/
-│   │   │   └── AIAdvisorView.swift     # Gemini chat & Health Score
-│   │   └── Settings/
-│   │       └── SettingsView.swift      # Gemini Key, Backend Server URL, Face ID
-│   └── Info.plist                      # Camera, Face ID, BackgroundModes permissions
-```
-
----
-
-## 🚀 Running the System
-
-### Step 1: Run the Auto-Scan Backend
+### 1. Build the iOS App on Mac / Xcode
 ```bash
-cd F:\ios\SmartLedger\Backend
-pip install -r requirements.txt
-cp .env.example .env   # Add your GEMINI_API_KEY
-uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+git clone https://github.com/mrsutharanil-arch/SmartLedger.git
+cd SmartLedger
+brew install xcodegen
+xcodegen generate
+open SmartLedger.xcodeproj
 ```
-API Documentation will be live at: `http://localhost:8000/docs`.
 
-### Step 2: Run the iOS App in Xcode
-1. Open **Xcode** on your Mac.
-2. Select **File > New > Project...** -> **iOS > App** (named `SmartLedger`).
-3. Drag the [`SmartLedger`](file:///f:/ios/SmartLedger/SmartLedger) source folder into Xcode.
-4. Set the Bundle Identifier to `com.smartledger.app`.
-5. Under **Signing & Capabilities**, add **Background Modes** (check *Background fetch* and *Background processing*).
-6. Press **Cmd + R** to run on your iPhone or Simulator!
+### 2. Run the Auto-Scan Backend
+```bash
+cd Backend
+pip install -r requirements.txt
+cp .env.example .env
+python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+```
+API Documentation live at: `http://localhost:8000/docs`.
